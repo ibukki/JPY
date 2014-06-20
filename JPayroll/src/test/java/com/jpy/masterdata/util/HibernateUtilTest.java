@@ -21,22 +21,22 @@ public class HibernateUtilTest {
         HibernateUtil.closeSession();  
     }
 	
-	@Test  
-    public void testSave() throws ParseException {  
-        EmployeeEO employee = new EmployeeEO();
-        employee.setFirstName("Ryan");
-        employee.setLastName("Huang");
-        employee.setGender("1");
-        employee.setDepartment("HCM");
-        employee.setJob("Developer");
-        employee.setDateOfBirth(DateUtils.parseDate("1987-12-14", "yyyy-MM-dd"));
-          
-        Session session = HibernateUtil.getSession();  
-        Transaction tx = session.beginTransaction();  
-          
-        session.save(employee);  
-          
-        tx.commit();  
-        HibernateUtil.closeSession();  
-    }  
+//	@Test  
+//    public void testSave() throws ParseException {  
+//        EmployeeEO employee = new EmployeeEO();
+//        employee.setFirstName("Ryan");
+//        employee.setLastName("Huang");
+//        employee.setGender("1");
+//        employee.setDepartment("HCM");
+//        employee.setJob("Developer");
+//        employee.setDateOfBirth(DateUtils.parseDate("1987-12-14", "yyyy-MM-dd"));
+//          
+//        Session session = HibernateUtil.getSession();  
+//        Transaction tx = session.beginTransaction();  
+//          
+//        session.save(employee);  
+//          
+//        tx.commit();  
+//        HibernateUtil.closeSession();  
+//    }  
 }

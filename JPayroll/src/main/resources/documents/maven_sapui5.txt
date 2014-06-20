@@ -1,0 +1,13 @@
+mvn install:install-file -Dfile=com.sap.ui5.core_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.core -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.commons_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.commons -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.table_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.table -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.ux3_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.ux3 -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.richtexteditor_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.richtexteditor -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.mobile_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.mobile -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.makit_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.makit -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.viz_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.viz -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.mobile-ext_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.mobile-ext -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.themelib_sap_bluecrystal_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.themelib_sap_bluecrystal -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.resource_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.resource -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.utils_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.utils -Dversion=1.20.6 -Dpackaging=jar
+mvn install:install-file -Dfile=com.sap.ui5.layout_1.20.6.jar -DgroupId=com.sap.ui5 -DartifactId=com.sap.ui5.layout -Dversion=1.20.6 -Dpackaging=jar
