@@ -15,7 +15,7 @@ sap.ui.jsview("ui.home.pages.home", {
 	createContent : function(oController) {
 		return new sap.ui.commons.Label({
 			text:"Welcome"
-		})
+		});
 	}
 
 });

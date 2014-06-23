@@ -52,7 +52,7 @@ sap.ui.controller("ui.home.pages.shell", {
 			   oShell.setContent(this.getView(anchor));
 			   oShell.setSelectedWorksetItem(anchor);
 		   }else{
-			   oShell.setContent(this.getView("nav-dashboard"));
+			   oShell.setContent(this.getView("nav-home"));
 		   }
 		  
 		   oShell.attachPaneBarItemSelected(function(oEvent){
