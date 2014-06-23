@@ -9,16 +9,17 @@ import org.hibernate.Transaction;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.jpy.common.util.HibernateUtil;
 import com.jpy.masterdata.eo.EmployeeEO;
 
 public class HibernateUtilTest {
 	@Test  
     public void testGetSession() {  
-        Session session = HibernateUtil.getSession();  
+        Session session = HibernateUtil.getSessionFactory().openSession();  
           
         Assert.assertNotNull(session);  
           
-        HibernateUtil.closeSession();  
+        HibernateUtil.getSessionFactory().close();  
     }
 	
 //	@Test  
