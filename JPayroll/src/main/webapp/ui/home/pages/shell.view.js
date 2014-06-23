@@ -1,11 +1,11 @@
-sap.ui.jsview("ui.home.shell", {
+sap.ui.jsview("ui.home.pages.shell", {
 
 	/** Specifies the Controller belonging to this View. 
 	* In the case that it is not implemented, or that "null" is returned, this View does not have a Controller.
 	* @memberOf ui.home.shell
 	*/ 
 	getControllerName : function() {
-		return "ui.home.shell";
+		return "ui.home.pages.shell";
 	},
 
 	/** Is initially called once after the Controller has been instantiated. It is the place where the UI is constructed. 

@@ -1,8 +1,8 @@
-sap.ui.controller("ui.home.shell", {
+sap.ui.controller("ui.home.pages.shell", {
 
 	
 	oNavigationItems : {
-		//"topic_r3":{text:"Topic from R3", viewName:"views.topic_r3",type:"JS"}
+		"home":{text:"Welcome", viewName:"ui.home.pages.home",type:"JS"}
 	},
 	
 	oViews : {},
