@@ -21,6 +21,7 @@
   
         <property name="hbm2ddl.auto">update</property>  
   
-        <mapping class="com.jpy.masterdata.eo.EmployeeEO"/>  
+        <mapping class="com.jpy.masterdata.eo.EmployeeEO"/>
+        <mapping class="com.jpy.wagetype.eo.WageTypeEO"/> 
     </session-factory>  
 </hibernate-configuration>

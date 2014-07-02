@@ -33,7 +33,9 @@
 
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>com.jpy.masterdata.rest</param-value>
+			<param-value>com.jpy.masterdata.rest,
+					     com.jpy.wagetype.rest
+			</param-value>
 		</init-param>
 		<init-param>
 	        <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
@@ -58,6 +60,13 @@
 		<filter-name>CacheControlFilter</filter-name>
 		<filter-class>com.sap.ui5.resource.CacheControlFilter</filter-class>
 	</filter>
+	<filter>
+		<description>
+		Rest filter</description>
+		<display-name>RestFilter</display-name>
+		<filter-name>RestFilter</filter-name>
+		<filter-class>com.jpy.common.filter.RestFilter</filter-class>
+	</filter>
 	<filter-mapping>
 		<filter-name>CacheControlFilter</filter-name>
 		<url-pattern>*.html</url-pattern>
@@ -77,6 +86,10 @@
 	<filter-mapping>
 		<filter-name>CacheControlFilter</filter-name>
 		<url-pattern>*.css</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>RestFilter</filter-name>
+		<servlet-name>jerseyws</servlet-name>
 	</filter-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
