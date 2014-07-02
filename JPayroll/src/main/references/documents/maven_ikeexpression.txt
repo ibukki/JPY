@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=IKExpression2.1.2.jar -DgroupId=org.wltea -DartifactId=org.wltea.expression -Dversion=2.1.2 -Dpackaging=jar
