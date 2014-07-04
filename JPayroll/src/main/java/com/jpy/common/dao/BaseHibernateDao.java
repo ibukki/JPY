@@ -21,12 +21,14 @@ public class BaseHibernateDao {
 	 */
 	private Session session;
 	
+	private ServletContext servletContext;
+	
 	public BaseHibernateDao(){
-		this.session = this.getSession();
+		
 	}
 	
 	public BaseHibernateDao(ServletContext servletContext){
-		this.session = this.getSession(servletContext);
+		this.servletContext = servletContext;
 	}
 	
 	/**
@@ -36,15 +38,15 @@ public class BaseHibernateDao {
 	 */
 	public int save(Object object) {
 		int res = -1;
-		Transaction ts = session.beginTransaction();
+		Transaction ts = this.getSession().beginTransaction();
 		try {
-			session.save(object);
+			this.getSession().save(object);
 			ts.commit();
 			res = 1;
 		} catch (HibernateException e) {
 			ts.rollback();
 		} finally {
-			session.close();
+			this.getSession().close();
 		}
 		return res;
 	}
@@ -57,8 +59,8 @@ public class BaseHibernateDao {
 	 */
 	public Object findById(Class cls, Serializable id) {
 		Object obj = null;
-		obj = session.get(cls, id);
-		session.close();
+		obj = this.getSession().get(cls, id);
+		this.getSession().close();
 		return obj;
 	}
 	
@@ -69,15 +71,15 @@ public class BaseHibernateDao {
 	 */
 	public int udpate(Object object) {
 		int res = -1;
-		Transaction ts = session.beginTransaction();
+		Transaction ts = this.getSession().beginTransaction();
 		try {
-			session.update(object);
+			this.getSession().update(object);
 			ts.commit();
 			res = 1;
 		} catch (HibernateException e) {
 			ts.rollback();
 		} finally {
-			session.close();
+			this.getSession().close();
 		}
 		return res;
 	}
@@ -90,16 +92,16 @@ public class BaseHibernateDao {
 	 */
 	public int delete(Class cls, Serializable id) {
 		int res = -1;
-		Transaction ts = session.beginTransaction();
+		Transaction ts = this.getSession().beginTransaction();
 		Object object = findById(cls, id);
 		try {
-			session.delete(object);
+			this.getSession().delete(object);
 			ts.commit();
 			res = 1;
 		} catch (HibernateException e) {
 			ts.rollback();
 		} finally {
-			session.close();
+			this.getSession().close();
 		}
 		return res;
 	}
@@ -111,7 +113,7 @@ public class BaseHibernateDao {
 	 */
 	public List findAll(Class cls) {
 		List list = new ArrayList();
-		list = session.createCriteria(cls).list();
+		list = this.getSession().createCriteria(cls).list();
 		return list;
 	}
 	
@@ -124,7 +126,7 @@ public class BaseHibernateDao {
 	 */
 	public List findAll(Class cls, int pageNo, int pageSize) {
 		List list = new ArrayList();
-		list = session.createCriteria(cls)
+		list = this.getSession().createCriteria(cls)
 				.setFirstResult((pageNo - 1) * pageSize)
 				.setMaxResults(pageSize).list();
 
@@ -139,7 +141,7 @@ public class BaseHibernateDao {
 	 */
 	public List findByObject(Class cls, Object obj) {
 		List list = new ArrayList();
-		list = session.createCriteria(cls).add(Example.create(obj)).list();
+		list = this.getSession().createCriteria(cls).add(Example.create(obj)).list();
 		return list;
 	}
 	
@@ -149,19 +151,14 @@ public class BaseHibernateDao {
 	 * @return
 	 */
 	private Session getSession() {
-		return HibernateUtil.getSessionFactory().openSession();
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	private Session getSession(ServletContext servletContext) {
-		SessionFactory sessionFactory = (SessionFactory) servletContext.getAttribute("SessionFactory");
+		SessionFactory sessionFactory = null;
+		if(this.servletContext != null){
+			sessionFactory = (SessionFactory) servletContext.getAttribute("SessionFactory");
+		}
 		if(sessionFactory != null){
 			return sessionFactory.openSession();
 		}else{
-			return this.getSession();
+			return HibernateUtil.getSessionFactory().openSession();
 		}
 	}
 }

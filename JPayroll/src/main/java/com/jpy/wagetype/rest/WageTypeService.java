@@ -1,7 +1,9 @@
 package com.jpy.wagetype.rest;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -19,6 +21,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.jpy.common.dao.HibernateDaoFactory;
+import com.jpy.wagetype.dao.WageTypeDao;
 import com.jpy.wagetype.eo.WageTypeEO;
 import com.jpy.wagetype.vo.WageTypeVO;
 import com.sun.jersey.spi.resource.Singleton;
@@ -35,12 +39,10 @@ public class WageTypeService {
 	public List<WageTypeVO> getWageTypeList(@Context ServletContext servletContext){
 		List<WageTypeVO> wageTypeList = new ArrayList<WageTypeVO>();
 		
-		SessionFactory sessionFactory = (SessionFactory) servletContext.getAttribute("SessionFactory");
-		if(sessionFactory != null){
-			Session session = sessionFactory.openSession();
-			Object result = session.createQuery("from WageTypeEO").list();
-			if(result != null){
-				List<WageTypeEO> wageListEO = (List<WageTypeEO>) result;
+		WageTypeDao wageTypeDao = (WageTypeDao) HibernateDaoFactory.getDaoInstance(WageTypeDao.class, servletContext);
+		if(wageTypeDao != null){
+			List<WageTypeEO> wageListEO = wageTypeDao.findAll(WageTypeEO.class);
+			if(wageListEO != null){
 				for (WageTypeEO wageTypeEO : wageListEO) {
 					WageTypeVO wagetypeVO = new WageTypeVO();
 					wagetypeVO.setWageTypeId(wageTypeEO.getWageTypeId());
@@ -67,11 +69,35 @@ public class WageTypeService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
 	public List<WageTypeVO> saveWageType(List<WageTypeVO> wageTypeList, @Context ServletContext servletContext, @Context HttpServletRequest request){
+		List<WageTypeEO> wageTypeListToSave = new ArrayList<WageTypeEO>();
+		List<WageTypeEO> wageTypeListSaved = new ArrayList<WageTypeEO>();
+		List<WageTypeVO> wageTypeSucceed = new ArrayList<WageTypeVO>();
 		
 		for (WageTypeVO wageTypeVO : wageTypeList) {
 			String begda = wageTypeVO.getBegdaString();
+			String endda = wageTypeVO.getEnddaString();
+			
+			WageTypeEO wageTypeEO = new WageTypeEO();
+			wageTypeEO.setWageTypeId(wageTypeVO.getWageTypeId());
+			wageTypeEO.setSequence(wageTypeVO.getSequence());
+			wageTypeEO.setAmount(wageTypeVO.getAmount());
+			wageTypeEO.setCount(wageTypeVO.getCount());
+			try {
+				wageTypeEO.setBegda(DateUtils.parseDateStrictly(begda, "yyyy-MM-dd"));
+				wageTypeEO.setEndda(DateUtils.parseDateStrictly(endda, "yyyy-MM-dd"));
+			} catch (ParseException e) {
+				logger.error("Parse date failed", e);
+			}
+			wageTypeEO.setCurrency(wageTypeVO.getCurrency());
+			wageTypeListToSave.add(wageTypeEO);
 		}
 		
+		WageTypeDao wageTypeDao = (WageTypeDao) HibernateDaoFactory.getDaoInstance(WageTypeDao.class, servletContext);
+		if(wageTypeDao != null){
+			wageTypeListSaved = wageTypeDao.saveAll(wageTypeListToSave);
+		}
+		
+		//TO DO 
 		return wageTypeList;
 	}
 }
