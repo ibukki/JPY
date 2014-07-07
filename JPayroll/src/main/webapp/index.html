@@ -9,11 +9,12 @@
           data-sap-ui-libs="sap.ui.ux3,sap.ui.commons,sap.ui.table"  
           data-sap-ui-theme="sap_bluecrystal" >  
   		</script>
-  		<link rel="stylesheet" href="css/dashboard.css" />
+  		<link rel="stylesheet" href="ui/payroll/css/payrollProcess.css" />
   		<script src="ui/home/js/assist.js"></script> 
         <script>  
               sap.ui.localResources("ui.home.pages");
-              sap.ui.localResources("ui.masterdata.pages"); 
+              sap.ui.localResources("ui.masterdata.pages");
+              sap.ui.localResources("ui.payroll.pages");
               var view = sap.ui.view({id:"shell1", viewName:"ui.home.pages.shell", type:sap.ui.core.mvc.ViewType.JS});  
               view.placeAt("content");  
         </script>  

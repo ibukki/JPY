@@ -2,7 +2,8 @@ sap.ui.controller("ui.home.pages.shell", {
 
 	
 	oNavigationItems : {
-		"home":{text:"Welcome", viewName:"ui.home.pages.home",type:"JS"}
+		"home":{text:"Welcome", viewName:"ui.home.pages.home",type:"JS"},
+		"pyprocess":{text:"Process", viewName:"ui.payroll.pages.payrollProcess",type:"JS"}
 	},
 	
 	oViews : {},
