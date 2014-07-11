@@ -13,9 +13,33 @@ sap.ui.jsview("ui.payroll.pages.wageType", {
 	* @memberOf ui.payroll.pages.wageType
 	*/ 
 	createContent : function(oController) {
-		return new sap.ui.commons.TextView({
-			text:"Create a your wagetype"
+		var oPanel = new sap.ui.commons.Panel({
+			text:"Maintain Wage Types",
+			width:"700px",
+			height:"500px"
 		});
+		var oWageTable = tableAssist.createTable({
+			id:"tb_wagetype",
+			visibleRowCount:10,
+			columns:[
+			         {label:"Wage Type ID", path:"{wageTypeId}", type:"input"},
+			         {label:"Sequence", path:"{sequence}", type:"input"},
+			         {label:"Begin Date", path:"{begdaString}", type:"date"},
+			         {label:"End Date", path:"{enddaString}", type:"date"},
+			         {label:"Amount", path:"{amount}" , type:"input"},
+			         {label:"Count", path:"{count}",  type:"input"},
+			         {label:"Currency", path:"{currency}" ,  type:"input"}
+			        ],
+			buttons:[new sap.ui.commons.Button({
+				text:"Add",
+				press:function(){oController.addWagetype();}
+			}), new sap.ui.commons.Button({
+				text:"Delete",
+				press:function(){oController.DeleteWageType();}
+			})]
+		});
+		oPanel.addContent(oWageTable);
+		return oPanel;
 	}
 
 });

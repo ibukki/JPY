@@ -58,7 +58,8 @@ tableAssist = {
 			break;
 		case 'input':
 			return new sap.ui.commons.TextField({
-				value: column.path
+				value: column.path,
+				editable: column.editable || true
 			});
 			break;
 		case 'button':

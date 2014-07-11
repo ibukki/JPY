@@ -18,13 +18,13 @@ sap.ui.jsview("ui.payroll.pages.payrollProcess", {
 			columns: 1
 		});
 		
-		var oRMap = new sap.ui.commons.RoadMap("py_process",{
+		var oRMap = new sap.ui.commons.RoadMap("py_process_rmap",{
 			width:"800px",
 			height: "200px"
 		});
 		
 		//create the RoadMap steps
-		var oStep1 = new sap.ui.commons.RoadMapStep("step1", {label: "Define Wage Types"});
+		var oStep1 = new sap.ui.commons.RoadMapStep("step_wageType", {label: "Define Wage Types"});
 		var oStep2 = new sap.ui.commons.RoadMapStep("step2", {label: "Step 2", enabled: false});
 		var oStep3 = new sap.ui.commons.RoadMapStep("step3", {label: "Step 3", enabled: false});
 		var oStep4 = new sap.ui.commons.RoadMapStep("step4", {label: "Step 4", enabled: false});
@@ -36,7 +36,7 @@ sap.ui.jsview("ui.payroll.pages.payrollProcess", {
 		oRMap.addStep(oStep4);
 		
 		//Set the first step as selected
-		oRMap.setSelectedStep("step1");
+		oRMap.setSelectedStep("step_wageType");
 
 		//Set the number of visible steps
 		oRMap.setNumberOfVisibleSteps(5);
@@ -48,9 +48,45 @@ sap.ui.jsview("ui.payroll.pages.payrollProcess", {
 		});
 		
 		var oStep1view = sap.ui.view({id:"wageType1", viewName:"ui.payroll.pages.wageType", type:sap.ui.core.mvc.ViewType.JS});
-		oStepContentMatrix.createRow(oStep1view);
+		this.getController().setContentView(oStep1view);
+		
+		oStepContentMatrix.addRow(new sap.ui.commons.layout.MatrixLayoutRow({
+			cells:[
+			         new sap.ui.commons.layout.MatrixLayoutCell({
+			        	 content:[oStep1view],
+			        	 vAlign: sap.ui.commons.layout.VAlign.Top
+			         })
+			         ]
+		}) );
 		
 		oMatrix.createRow(oStepContentMatrix);
+		
+		var oSaveNextButton = new sap.ui.commons.Button({text: 'Save and Next',
+														style: sap.ui.commons.ButtonStyle.Accept,
+														press:function(){ oController.saveAndNext() ;}
+														});
+		oSaveNextButton.addStyleClass("btn_save_next");
+		var oNextwithouSaveButton = new sap.ui.commons.Button({text: 'Next without Save',
+															   style:sap.ui.commons.ButtonStyle.Emph,
+															   press:function(){ oController.nextWithoutSave() ;}   
+															});
+		oNextwithouSaveButton.addStyleClass("btn_next_without_save");
+		var oButtonBorderLayout = new sap.ui.commons.layout.BorderLayout("BorderLayout1", {width: "600px", height: "200px", 
+			begin: new sap.ui.commons.layout.BorderLayoutArea({
+				size: "20%",
+				contentAlign: "center",
+				visible: true, 
+				content: [new sap.ui.commons.Button({text: 'Cancel',style:sap.ui.commons.ButtonStyle.Reject})]
+				}),
+			end: new sap.ui.commons.layout.BorderLayoutArea({
+				size: "50%",
+				contentAlign: "right",
+				visible: true, 
+				content: [oSaveNextButton,oNextwithouSaveButton]
+				})
+			});
+		
+		oMatrix.createRow(oButtonBorderLayout);
 		return oMatrix;
 		
 		
