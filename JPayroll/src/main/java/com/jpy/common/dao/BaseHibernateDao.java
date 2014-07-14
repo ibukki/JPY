@@ -38,15 +38,35 @@ public class BaseHibernateDao {
 	 */
 	public int save(Object object) {
 		int res = -1;
-		Transaction ts = this.getSession().beginTransaction();
+		Session session = this.getSession();
+		Transaction ts = session.beginTransaction();
 		try {
-			this.getSession().save(object);
+			session.save(object);
+			session.flush();
 			ts.commit();
 			res = 1;
 		} catch (HibernateException e) {
 			ts.rollback();
 		} finally {
-			this.getSession().close();
+			session.close();
+		}
+		return res;
+	}
+	
+	
+	public int saveorUpdate(Object object) {
+		int res = -1;
+		Session session = this.getSession();
+		Transaction ts = session.beginTransaction();
+		try {
+			session.saveOrUpdate(object);
+			session.flush();
+			ts.commit();
+			res = 1;
+		} catch (HibernateException e) {
+			ts.rollback();
+		} finally {
+			session.close();
 		}
 		return res;
 	}
@@ -59,8 +79,9 @@ public class BaseHibernateDao {
 	 */
 	public Object findById(Class cls, Serializable id) {
 		Object obj = null;
-		obj = this.getSession().get(cls, id);
-		this.getSession().close();
+		Session session = this.getSession();
+		obj = session.get(cls, id);
+		session.close();
 		return obj;
 	}
 	
@@ -71,15 +92,17 @@ public class BaseHibernateDao {
 	 */
 	public int udpate(Object object) {
 		int res = -1;
-		Transaction ts = this.getSession().beginTransaction();
+		Session session = this.getSession();
+		Transaction ts = session.beginTransaction();
 		try {
-			this.getSession().update(object);
+			session.update(object);
+			session.flush();
 			ts.commit();
 			res = 1;
 		} catch (HibernateException e) {
 			ts.rollback();
 		} finally {
-			this.getSession().close();
+			session.close();
 		}
 		return res;
 	}
@@ -92,16 +115,18 @@ public class BaseHibernateDao {
 	 */
 	public int delete(Class cls, Serializable id) {
 		int res = -1;
-		Transaction ts = this.getSession().beginTransaction();
+		Session session = this.getSession();
+		Transaction ts = session.beginTransaction();
 		Object object = findById(cls, id);
 		try {
-			this.getSession().delete(object);
+			session.delete(object);
+			session.flush();
 			ts.commit();
 			res = 1;
 		} catch (HibernateException e) {
 			ts.rollback();
 		} finally {
-			this.getSession().close();
+			session.close();
 		}
 		return res;
 	}

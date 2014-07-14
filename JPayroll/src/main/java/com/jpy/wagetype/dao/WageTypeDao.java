@@ -17,7 +17,7 @@ public class WageTypeDao extends BaseHibernateDao{
 	public List<WageTypeEO> saveAll(List<WageTypeEO> wageList){
 		List<WageTypeEO> resultList = new ArrayList<WageTypeEO>();
 		for (WageTypeEO wageTypeEO : wageList) {
-			int rs = this.save(wageTypeEO);
+			int rs = this.saveorUpdate(wageTypeEO);
 			if(rs > 0){
 				resultList.add(wageTypeEO);
 			}
