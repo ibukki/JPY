@@ -71,7 +71,7 @@ sap.ui.jsview("ui.payroll.pages.payrollProcess", {
 															   press:function(){ oController.nextWithoutSave() ;}   
 															});
 		oNextwithouSaveButton.addStyleClass("btn_next_without_save");
-		var oButtonBorderLayout = new sap.ui.commons.layout.BorderLayout("BorderLayout1", {width: "600px", height: "200px", 
+		var oButtonBorderLayout = new sap.ui.commons.layout.BorderLayout("BorderLayout1", {width: "700px", height: "200px", 
 			begin: new sap.ui.commons.layout.BorderLayoutArea({
 				size: "20%",
 				contentAlign: "center",

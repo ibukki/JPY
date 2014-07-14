@@ -28,6 +28,22 @@ sap.ui.controller("ui.payroll.pages.wageType", {
 		
 	DeleteWageType:function(){
 		
+	},
+	
+	saveContent : function(callback){
+		var oTable = sap.ui.getCore().byId("tb_wagetype");
+		var oJson = oTable.getModel().getData().data;
+		console.debug(oJson);
+		$.ajax({
+          type: 'post',
+          url: this.serviceUrl + "save",
+          data: JSON.stringify(oJson),
+          contentType: "application/json; charset=utf-8",
+          traditional: true,
+          success: function (data) {
+              callback();
+          }
+    });
 	}
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

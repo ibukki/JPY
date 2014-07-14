@@ -15,7 +15,7 @@ tableAssist = {
 				var oColumn = new sap.ui.table.Column({
 					label: new sap.ui.commons.Label({ text: xargs.columns[i].label }),
 					template: this.getColumnTemplate(xargs.columns[i]),
-					width: 1/columnSize * 100 + "%",
+					width: xargs.columns[i].width || 1/columnSize * 100 + "%",
 				});
 				if(xargs.columns[i].sort){
 					oColumn.setSortProperty(xargs.columns[i].label);

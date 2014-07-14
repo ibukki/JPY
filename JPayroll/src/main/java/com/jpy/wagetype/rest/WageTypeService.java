@@ -86,7 +86,7 @@ public class WageTypeService {
 	private void ConvertWageTypeBeanFromDB2UI( WageTypeVO vo, WageTypeEO eo) {
 		try {
 			BeanUtils.copyProperties(vo, eo);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			if (null != eo.getBegda()) {
 				vo.setBegdaString(sdf.format(eo.getBegda()));
 			}
@@ -104,9 +104,9 @@ public class WageTypeService {
 			BeanUtils.copyProperties(eo, vo);
 			try {
 				eo.setBegda(DateUtils.parseDateStrictly(vo.getBegdaString(),
-						"yyyy-MM-dd"));
+						"yyyyMMdd"));
 				eo.setEndda(DateUtils.parseDateStrictly(vo.getEnddaString(),
-						"yyyy-MM-dd"));
+						"yyyyMMdd"));
 			} catch (ParseException e) {
 				logger.error("Parse date failed", e);
 			}

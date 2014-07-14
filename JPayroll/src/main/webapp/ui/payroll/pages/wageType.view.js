@@ -24,8 +24,8 @@ sap.ui.jsview("ui.payroll.pages.wageType", {
 			columns:[
 			         {label:"Wage Type ID", path:"{wageTypeId}", type:"input"},
 			         {label:"Sequence", path:"{sequence}", type:"input"},
-			         {label:"Begin Date", path:"{begdaString}", type:"date"},
-			         {label:"End Date", path:"{enddaString}", type:"date"},
+			         {label:"Begin Date", path:"{begdaString}", type:"date",width:"130px"},
+			         {label:"End Date", path:"{enddaString}", type:"date", width: "130px"},
 			         {label:"Amount", path:"{amount}" , type:"input"},
 			         {label:"Count", path:"{count}",  type:"input"},
 			         {label:"Currency", path:"{currency}" ,  type:"input"}

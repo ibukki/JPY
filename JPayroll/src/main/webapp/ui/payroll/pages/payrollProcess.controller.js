@@ -5,9 +5,9 @@ sap.ui.controller("ui.payroll.pages.payrollProcess", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf ui.payroll.pages.payrollProcess
 */
-//	onInit: function() {
-//
-//	},
+	onInit: function() {
+		
+	},
 	
 	contentView: null,
 	
@@ -18,12 +18,37 @@ sap.ui.controller("ui.payroll.pages.payrollProcess", {
 	saveAndNext : function(){
 		var selMap = sap.ui.getCore().byId("py_process_rmap");
 		var selStepId = selMap.getSelectedStep();
-		if(selStepId == "step_wageType"){
-			//proceed save wage types
-			
-		}
+		var eventBus = sap.ui.getCore().getEventBus();
+		//save content first
+		var that = this;
+		this.contentView.getController().saveContent(function(){
+			var nextStep = that.getNextStep();
+			console.debug(nextStep);
+			if(nextStep != "LAST_ONE"){
+				selMap.setSelectedStep(nextStep.getId());
+			}
+		});
 	},
 	
+	getNextStep : function(currentStep){
+		var selMap = sap.ui.getCore().byId("py_process_rmap");
+		var selStepId = selMap.getSelectedStep();
+		var steps = selMap.getSteps();
+		for(var i = 0 ; i < steps.length; i++){
+			var step = steps[i];
+			var stepId = step.getId();
+			if(stepId == selStepId){
+				if(i < steps.length - 1){
+					return steps[i+1];
+				}
+			}
+		}
+		return "LAST_ONE"; 
+	},
+	
+	getContentView : function(stepId){
+	
+	},
 	nextWithoutSave : function(){
 		
 	}
