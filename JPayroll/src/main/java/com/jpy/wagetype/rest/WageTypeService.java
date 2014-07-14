@@ -74,8 +74,8 @@ public class WageTypeService {
 				.getDaoInstance(WageTypeDao.class, servletContext);
 		if (wageTypeDao != null) {
 			wageTypeListSaved = wageTypeDao.saveAll(wageTypeListToSave);
-			WageTypeVO savedVO = new WageTypeVO();
 			for (WageTypeEO savedEO : wageTypeListSaved) {
+				WageTypeVO savedVO = new WageTypeVO();
 				this.ConvertWageTypeBeanFromDB2UI(savedVO, savedEO);
 				wageTypeSucceed.add(savedVO);
 			}
