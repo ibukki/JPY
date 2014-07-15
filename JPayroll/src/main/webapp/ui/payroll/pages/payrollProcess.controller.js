@@ -6,49 +6,104 @@ sap.ui.controller("ui.payroll.pages.payrollProcess", {
 * @memberOf ui.payroll.pages.payrollProcess
 */
 	onInit: function() {
+		this.registerStep("step_wageType",sap.ui.view({id:"wageType1", viewName:"ui.payroll.pages.wageType", type:sap.ui.core.mvc.ViewType.JS}));
+		this.registerStep("step_paramConfig",sap.ui.view({id:"paramConfig1",viewName:"ui.payroll.pages.paramConfig",type:sap.ui.core.mvc.ViewType.JS}));
 		
+		this.setStepView("step_wageType");
 	},
 	
-	contentView: null,
-	
-	setContentView: function(view){
-		this.contentView = view;
+	setStepView : function(stepId){
+		var oProcContent = sap.ui.getCore().byId("py_proc_content");
+		oProcContent.removeAllContent();
+		oProcContent.addContent(this.getStepView(stepId));
+		
+		this.currentStepId = stepId;
 	},
 	
+	steps : {},
+	
+	currentStepId: null,
+	
+	contentView: {},
+	
+	getStepView : function(stepId){
+		return this.steps[stepId];
+	},
+	
+	registerStep : function(stepId, stepView){
+		if(!this.steps[stepId]){
+			this.steps[stepId] = stepView;
+		}
+	},
 	saveAndNext : function(){
 		var selMap = sap.ui.getCore().byId("py_process_rmap");
-		var selStepId = selMap.getSelectedStep();
-		var eventBus = sap.ui.getCore().getEventBus();
 		//save content first
 		var that = this;
-		this.contentView.getController().saveContent(function(){
-			var nextStep = that.getNextStep();
-			console.debug(nextStep);
-			if(nextStep != "LAST_ONE"){
-				selMap.setSelectedStep(nextStep.getId());
-			}
+		this.getStepView(this.currentStepId).getController().saveContent(function(){
+			var newSel = that.naviToNextStep();
 		});
 	},
 	
-	getNextStep : function(currentStep){
+	naviToNextStep : function( ){
 		var selMap = sap.ui.getCore().byId("py_process_rmap");
+		//select the next step
 		var selStepId = selMap.getSelectedStep();
+		var newStepId = selStepId;
 		var steps = selMap.getSteps();
 		for(var i = 0 ; i < steps.length; i++){
 			var step = steps[i];
-			var stepId = step.getId();
-			if(stepId == selStepId){
+			step.setEnabled(true);
+			if(step.getId() == selStepId){
 				if(i < steps.length - 1){
-					return steps[i+1];
+					newStepId = steps[i+1].getId();
 				}
 			}
 		}
-		return "LAST_ONE"; 
+		
+		//disable all the rest
+		steps = selMap.getSteps();
+		for(var i = 0; i < steps.length; i++){
+			var step = steps[i];
+			if(step.getId() != newStepId){
+				step.setEnabled(false);
+			}
+		}
+		selMap.setSelectedStep(newStepId);
+		
+		this.setStepView(newStepId);
+		return selStepId; 
 	},
 	
-	getContentView : function(stepId){
-	
+	naviToPreviousStep : function(){
+		var selMap = sap.ui.getCore().byId("py_process_rmap");
+		//select the next step
+		var selStepId = selMap.getSelectedStep();
+		var newStepId = selStepId;
+		var steps = selMap.getSteps();
+		for(var i = 0 ; i < steps.length; i++){
+			var step = steps[i];
+			step.setEnabled(true);
+			if(step.getId() == selStepId){
+				if(i > 0){
+					newStepId = steps[i-1].getId();
+				}
+			}
+		}
+		
+		//disable all the rest
+		steps = selMap.getSteps();
+		for(var i = 0; i < steps.length; i++){
+			var step = steps[i];
+			if(step.getId() != newStepId){
+				step.setEnabled(false);
+			}
+		}
+		selMap.setSelectedStep(newStepId);
+		
+		this.setStepView(newStepId);
+		return selStepId; 
 	},
+
 	nextWithoutSave : function(){
 		
 	}

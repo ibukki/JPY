@@ -25,7 +25,7 @@ sap.ui.jsview("ui.payroll.pages.payrollProcess", {
 		
 		//create the RoadMap steps
 		var oStep1 = new sap.ui.commons.RoadMapStep("step_wageType", {label: "Define Wage Types"});
-		var oStep2 = new sap.ui.commons.RoadMapStep("step2", {label: "Step 2", enabled: false});
+		var oStep2 = new sap.ui.commons.RoadMapStep("step_paramConfig", {label: "Step 2", enabled: false});
 		var oStep3 = new sap.ui.commons.RoadMapStep("step3", {label: "Step 3", enabled: false});
 		var oStep4 = new sap.ui.commons.RoadMapStep("step4", {label: "Step 4", enabled: false});
 		
@@ -47,13 +47,10 @@ sap.ui.jsview("ui.payroll.pages.payrollProcess", {
 			height: "500px"
 		});
 		
-		var oStep1view = sap.ui.view({id:"wageType1", viewName:"ui.payroll.pages.wageType", type:sap.ui.core.mvc.ViewType.JS});
-		this.getController().setContentView(oStep1view);
-		
 		oStepContentMatrix.addRow(new sap.ui.commons.layout.MatrixLayoutRow({
 			cells:[
-			         new sap.ui.commons.layout.MatrixLayoutCell({
-			        	 content:[oStep1view],
+			         new sap.ui.commons.layout.MatrixLayoutCell("py_proc_content",{
+			        	 content:[],
 			        	 vAlign: sap.ui.commons.layout.VAlign.Top
 			         })
 			         ]

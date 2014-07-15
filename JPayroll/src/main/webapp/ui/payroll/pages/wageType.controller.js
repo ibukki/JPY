@@ -33,7 +33,6 @@ sap.ui.controller("ui.payroll.pages.wageType", {
 	saveContent : function(callback){
 		var oTable = sap.ui.getCore().byId("tb_wagetype");
 		var oJson = oTable.getModel().getData().data;
-		console.debug(oJson);
 		$.ajax({
           type: 'post',
           url: this.serviceUrl + "save",
