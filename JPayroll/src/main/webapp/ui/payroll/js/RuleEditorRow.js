@@ -19,7 +19,7 @@ sap.ui.core.Control.extend("jpy.ui.RuleEditorRow",{
 	},
 	
 	init: function(){
-		this._formulaInput = new sap.ui.commons.TextField(this.getId() + "_formula",{
+		this._formulaInput = new sap.ui.commons.TextField({
 			width:"100%",
 			height:"100%",
 			editable :false
@@ -34,12 +34,13 @@ sap.ui.core.Control.extend("jpy.ui.RuleEditorRow",{
 		oRm.write(">");
 		
 		oRm.write("<div class='rule_row_seq' style='width:30%;min-width:30px;height:100%;float:left;text-align:center;'>");
-		oRm.write(oCtrl.getSequence());
+		oRm.writeEscaped(oCtrl.getSequence());
 		oRm.write("</div>");
 		
 		oRm.write("<div class='rule_row_content' style='width:69%;height:100%;float:left'>");
-		oCtrl._formulaInput.setValue(oCtrl.getFormula());
-		oRm.renderControl(oCtrl._formulaInput);
+		this._formulaInput.setId(oCtrl.getId() + "_formula");
+		this._formulaInput.setValue(oCtrl.getFormula());
+		oRm.renderControl(this._formulaInput);
 		oRm.write("</div>");
 		
 		oRm.write("</div>");
