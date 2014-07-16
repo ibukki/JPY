@@ -1,15 +1,23 @@
 sap.ui.controller("ui.payroll.pages.payrollProcess", {
 	
+  stepConfigs : [
+                {id:"step_wageType", label:"step_wageType", enabled:true, viewName:"ui.payroll.pages.wageType"},
+                {id:"step_paramConfig", label:"Parameters Config", enabled:false,viewName:"ui.payroll.pages.paramConfig"},
+                {id:"step_ruleConfig", label:"Rule Config", enabled:false ,viewName:"ui.payroll.pages.ruleConfig"}
+               ],
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf ui.payroll.pages.payrollProcess
 */
 	onInit: function() {
-		this.registerStep("step_wageType",sap.ui.view({id:"wageType1", viewName:"ui.payroll.pages.wageType", type:sap.ui.core.mvc.ViewType.JS}));
-		this.registerStep("step_paramConfig",sap.ui.view({id:"paramConfig1",viewName:"ui.payroll.pages.paramConfig",type:sap.ui.core.mvc.ViewType.JS}));
-		
-		this.setStepView("step_wageType");
+		if(this.stepConfigs){
+			for(var i = 0 ; i < this.stepConfigs.length; i++){
+				var stepConf = this.stepConfigs[i];
+				this.registerStep(stepConf.id,sap.ui.view({id:"view-"+stepConf.id, viewName:stepConf.viewName, type:sap.ui.core.mvc.ViewType.JS}));
+			}
+			this.setStepView(this.stepConfigs[0].id);
+		}
 	},
 	
 	setStepView : function(stepId){

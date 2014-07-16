@@ -24,19 +24,12 @@ sap.ui.jsview("ui.payroll.pages.payrollProcess", {
 		});
 		
 		//create the RoadMap steps
-		var oStep1 = new sap.ui.commons.RoadMapStep("step_wageType", {label: "Define Wage Types"});
-		var oStep2 = new sap.ui.commons.RoadMapStep("step_paramConfig", {label: "Step 2", enabled: false});
-		var oStep3 = new sap.ui.commons.RoadMapStep("step3", {label: "Step 3", enabled: false});
-		var oStep4 = new sap.ui.commons.RoadMapStep("step4", {label: "Step 4", enabled: false});
-		
-		//add steps to the RoadMap
-		oRMap.addStep(oStep1);
-		oRMap.addStep(oStep2);
-		oRMap.addStep(oStep3);
-		oRMap.addStep(oStep4);
-		
-		//Set the first step as selected
-		oRMap.setSelectedStep("step_wageType");
+		for(var i = 0 ; i < oController.stepConfigs.length; i++){
+			var stepConf = oController.stepConfigs[i];
+			var oStep = new sap.ui.commons.RoadMapStep(stepConf.id, {label: stepConf.label, enabled: stepConf.enabled});
+			oRMap.addStep(oStep);
+		}
+		oRMap.setSelectedStep(oController.stepConfigs[0].id);
 
 		//Set the number of visible steps
 		oRMap.setNumberOfVisibleSteps(5);
