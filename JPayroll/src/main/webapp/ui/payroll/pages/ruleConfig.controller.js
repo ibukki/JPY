@@ -11,6 +11,41 @@ sap.ui.controller("ui.payroll.pages.ruleConfig", {
 	
 	saveContent : function(callback){
 		callback();
+	},
+	
+	addFormulaLine : function(){
+		var oRR = sap.ui.getCore().byId("rule_editor");
+		this.showAddFormulaDialog();
+	},
+	
+	showAddFormulaDialog : function(){
+		var oDialog = new sap.ui.commons.Dialog("dialog_edit_formula", {
+			title:"Add formula",
+			width:"500px",
+			close:function(){
+				this.destroy();
+			},
+			buttons:[new sap.ui.commons.Button({
+				text:"Close",
+				press:function(){
+					oDialog.destroy();
+				}
+			}), new sap.ui.commons.Button({
+				text:"Save",
+				style:sap.ui.commons.ButtonStyle.Accept,
+				press:function(){
+					
+					oDialog.destroy();
+				}
+			})]
+		});
+		var oMatrix = new sap.ui.commons.layout.MatrixLayout({
+			width:"100%"
+		});
+		oMatrix.createRow(new sap.ui.commons.TextField({enabled:true,
+														width:"100%"}));
+		oDialog.addContent(oMatrix);
+		oDialog.open();
 	}
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

@@ -34,7 +34,8 @@
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
 			<param-value>com.jpy.masterdata.rest,
-					     com.jpy.wagetype.rest
+					     com.jpy.wagetype.rest,
+					     com.jpy.schema.rest
 			</param-value>
 		</init-param>
 		<init-param>

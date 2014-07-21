@@ -49,6 +49,14 @@ sap.ui.jsview("ui.payroll.pages.ruleConfig", {
 		});
 		oRowRepeater.addRow(row2);
 		oPanel.addContent(oRowRepeater);
+		
+		oButton = new sap.ui.commons.Button({
+			text:"Add",
+			press:function(){
+				oController.addFormulaLine();
+			}
+		});
+		oPanel.addContent(oButton);
 		return oPanel;
 	}
 
