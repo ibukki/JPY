@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema_conf>
+	<input>
+		<param>
+			<name></name>
+			<category>WageType</category>
+			<type></type>
+		</param>
+		<param>
+			<name></name>
+			<category>WageType</category>
+			<type></type>
+		</param>
+		<param>
+			<name></name>
+			<category>WageType</category>
+			<type></type>
+		</param>
+	</input>
+</schema_conf>
