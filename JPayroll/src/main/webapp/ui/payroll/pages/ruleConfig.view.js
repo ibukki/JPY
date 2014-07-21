@@ -43,6 +43,11 @@ sap.ui.jsview("ui.payroll.pages.ruleConfig", {
 			formula: "a = b + c"
 		});
 		oRowRepeater.addRow(row1);
+		var row2 = new jpy.ui.RuleEditorRow({
+			sequence:2,
+			formula: "d = a + 5 * 10"
+		});
+		oRowRepeater.addRow(row2);
 		oPanel.addContent(oRowRepeater);
 		return oPanel;
 	}
