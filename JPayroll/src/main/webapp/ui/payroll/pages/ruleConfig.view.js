@@ -38,7 +38,11 @@ sap.ui.jsview("ui.payroll.pages.ruleConfig", {
 			fixedRowHeight:"30px"
 		});
 		
-		oRowRepeater.addRow(new sap.ui.commons.Label({text:"shit"}));
+		var row1 = new jpy.ui.RuleEditorRow({
+			sequence:1,
+			formula: "a = b + c"
+		});
+		oRowRepeater.addRow(row1);
 		oPanel.addContent(oRowRepeater);
 		return oPanel;
 	}
