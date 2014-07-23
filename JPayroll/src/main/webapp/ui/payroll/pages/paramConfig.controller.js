@@ -5,12 +5,23 @@ sap.ui.controller("ui.payroll.pages.paramConfig", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf ui.payroll.pages.paramConfig
 */
-//	onInit: function() {
-//
-//	},
+	onInit: function() {
+		loadConfiguredParams();
+	},
+	
+	loadConfiguredParams : function(){
+		
+	},
 	
 	saveContent : function(callback){
 		callback();
+	},
+	
+	addInputParam : function(){
+		var inputTable = sap.ui.getCore().byId("tb_paramconf_input");
+		var oJsonModel = inputTable.getModel();
+		var oJson = oJsonModel().getData().data;
+		
 	}
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

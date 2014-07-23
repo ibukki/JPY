@@ -71,6 +71,21 @@ tableAssist = {
 			return new sap.ui.commons.DatePicker({
 				yyyymmdd:column.path
 			});
+			break;
+		case 'dropdown':
+			var dp = new sap.ui.commons.DropdownBox({
+				editable: column.editable || true
+			});
+			var itms = column.items;
+			for(var i in itms){
+				var oItem = new sap.ui.core.ListItem({
+					key:itms[i].key,
+					text:itms[i].text
+				});
+				dp.addItem(oItem);
+			}
+			return dp;
+			break;
 		default:
 			return new sap.ui.commons.TextView({ text: column.path });
 			break;

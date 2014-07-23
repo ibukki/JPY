@@ -15,7 +15,8 @@ sap.ui.jsview("ui.payroll.pages.paramConfig", {
 	createContent : function(oController) {
 		
 		var oPanel = new sap.ui.commons.Panel({
-			text:"Parameters Config"
+			text:"Parameters Config",
+			width:"960px"
 		});
 		
 		var oMatrix = new sap.ui.commons.layout.MatrixLayout({	
@@ -34,7 +35,7 @@ sap.ui.jsview("ui.payroll.pages.paramConfig", {
 		});
 		
 		var oInputTable = tableAssist.createTable({
-			id:"tb_input",
+			id:"tb_paramconf_input",
 			visibleRowCount:10,
 			columns:[
 			         {label:"Name", path:"{name}", type:"input"},
@@ -58,12 +59,20 @@ sap.ui.jsview("ui.payroll.pages.paramConfig", {
 		
 		
 		var oOutputTable = tableAssist.createTable({
-			id:"tb_output",
+			id:"tb_paramconf_output",
 			visibleRowCount:10,
 			columns:[
 			         {label:"Name", path:"{name}", type:"input"},
-			         {label:"Category", path:"{category}", type:"input"},
-			         {label:"Type", path:"{type}",width:"130px"}
+			         {label:"Category", path:"{category}", type:"dropdown",items:[
+			                                                                      {key:"wagetype",text:"Wage Type"},
+			                                                                      {key:"custominput",text:"Custom Input"},
+			                                                                      {key:"constant",text:"Constant"}
+			                                                                      ]},
+			         {label:"Type", path:"{type}",width:"130px",type:"dropdown",items:[
+			                                                                           {key:"number", text:"Number"},
+			                                                                           {key:"percentage",text:"Percentage"},
+			                                                                           {key:"text",text:"Text"}
+			                                                                           ]}
 			        ],
 			buttons:[new sap.ui.commons.Button({
 				text:"Add",

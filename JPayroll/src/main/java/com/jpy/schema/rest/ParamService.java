@@ -1,5 +1,6 @@
 package com.jpy.schema.rest;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,9 +14,10 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 
 import com.jpy.common.dao.HibernateDaoFactory;
+import com.jpy.schema.conf.SchemaConfParser;
 import com.jpy.schema.conf.dao.SchemaParamDao;
 import com.jpy.schema.conf.eo.SchemaConfEO;
-import com.jpy.schema.conf.vo.Parameter;
+import com.jpy.schema.conf.vo.SchemaConfParam;
 import com.sun.jersey.spi.resource.Singleton;
 
 @Singleton
@@ -27,21 +29,36 @@ public class ParamService {
 	@GET
 	@Path("input")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Parameter> loadInputParams(@QueryParam("schemaId") String schemaId, @Context ServletContext servletContext){
+	public List<SchemaConfParam> loadInputParams(@QueryParam("schemaId") String schemaId, @Context ServletContext servletContext){
 		
 		SchemaParamDao confDao = (SchemaParamDao) HibernateDaoFactory
 				.getDaoInstance(SchemaParamDao.class, servletContext);
 		SchemaConfEO schemaConf = (SchemaConfEO) confDao.findById(SchemaConfEO.class, schemaId);
-		byte[] inputParamBytes = schemaConf.getInputParam();
+		if(schemaConf != null){
+			byte[] inputParamBytes = schemaConf.getInputParam();
+			return SchemaConfParser.parseConfParams(inputParamBytes, "input");
+		}else{
+			logger.debug("no configuration loaded from database");
+			return Collections.emptyList();
+		}
 		
-		return null;
 
 	}
 	
 	@GET
 	@Path("output")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Parameter> loadOutputParams(@QueryParam("schemaId") String schemaId, @Context ServletContext servletContext){
-		return null;
+	public List<SchemaConfParam> loadOutputParams(@QueryParam("schemaId") String schemaId, @Context ServletContext servletContext){
+		SchemaParamDao confDao = (SchemaParamDao) HibernateDaoFactory
+				.getDaoInstance(SchemaParamDao.class, servletContext);
+		SchemaConfEO schemaConf = (SchemaConfEO) confDao.findById(SchemaConfEO.class, schemaId);
+		if(schemaConf != null){
+			byte[] outputParamBytes = schemaConf.getOutputParam();
+			return SchemaConfParser.parseConfParams(outputParamBytes, "output");
+		}else{
+			logger.debug("no configuration loaded from database");
+			return Collections.emptyList();
+		}
+		
 	}
 }
