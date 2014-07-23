@@ -27,7 +27,13 @@ sap.ui.jsview("ui.payroll.pages.paramConfig", {
 		var oInput = new sap.ui.commons.TextField("i_schema_id",{
 			value:""
 		});
-		oMatrix.createRow(oLabel, oInput);
+		var oButton = new sap.ui.commons.Button("btn_get_conf",{
+			text:"Load Config Data",
+			press:function(){
+				oController.loadConfiguredParams();
+			}
+		});
+		oMatrix.createRow(oLabel, oInput, oButton);
 		oPanel.addContent(oMatrix);
 		
 		oMatrix = new sap.ui.commons.layout.MatrixLayout({
@@ -39,8 +45,16 @@ sap.ui.jsview("ui.payroll.pages.paramConfig", {
 			visibleRowCount:10,
 			columns:[
 			         {label:"Name", path:"{name}", type:"input"},
-			         {label:"Category", path:"{category}", type:"input"},
-			         {label:"Type", path:"{type}",width:"130px"}
+			         {label:"Category", path:"{category}", type:"dropdown",items:[
+			                                                                      {key:"wagetype",text:"Wage Type"},
+			                                                                      {key:"custominput",text:"Custom Input"},
+			                                                                      {key:"constant",text:"Constant"}
+			                                                                      ]},
+			         {label:"Type", path:"{type}",width:"130px",type:"dropdown",items:[
+			                                                                           {key:"number", text:"Number"},
+			                                                                           {key:"percentage",text:"Percentage"},
+			                                                                           {key:"text",text:"Text"}
+			                                                                           ]}
 			        ],
 			buttons:[new sap.ui.commons.Button({
 				text:"Add",

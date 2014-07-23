@@ -1,18 +1,54 @@
 sap.ui.controller("ui.payroll.pages.paramConfig", {
-
+	
+	serviceUrl: "rest/params/",
+	
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf ui.payroll.pages.paramConfig
 */
 	onInit: function() {
-		loadConfiguredParams();
-	},
-	
-	loadConfiguredParams : function(){
 		
 	},
 	
+	loadConfiguredParams : function(){
+		var schemaId = sap.ui.getCore().byId("i_schema_id").getValue();
+		if(schemaId == ""){
+			alert("Please input schemaId");
+		}
+		//loadInputParams;
+		this.loadInputConfParams(schemaId);
+		this.loadoutputConfParams(schemaId);
+	},
+	
+	loadInputConfParams:function(schemaId){
+		var url = this.serviceUrl + "input?schemaId=" + schemaId;
+		$.get(url,function(data){
+			if(data){
+				var oJson = {data:data};
+				var oJsonModel = new sap.ui.model.json.JSONModel();
+				oJsonModel.setData(oJson);
+				var inputTable = sap.ui.getCore().byId("tb_paramconf_input");
+				inputTable.setModel(oJsonModel);
+				inputTable.bindRows("/data");
+			}
+			
+		});
+		
+	},
+	loadoutputConfParams:function(schemaId){
+		var url = this.serviceUrl + "output?schemaId=" + schemaId;
+		$.get(url,function(data){
+			if(data){
+				var oJson = {data:data};
+				var oJsonModel = new sap.ui.model.json.JSONModel();
+				oJsonModel.setData(oJson);
+				var inputTable = sap.ui.getCore().byId("tb_paramconf_output");
+				inputTable.setModel(oJsonModel);
+				inputTable.bindRows("/data");
+			}
+		});
+	},
 	saveContent : function(callback){
 		callback();
 	},

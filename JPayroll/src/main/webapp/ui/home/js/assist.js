@@ -74,7 +74,8 @@ tableAssist = {
 			break;
 		case 'dropdown':
 			var dp = new sap.ui.commons.DropdownBox({
-				editable: column.editable || true
+				editable: column.editable || true,
+				selectedKey:column.path
 			});
 			var itms = column.items;
 			for(var i in itms){
