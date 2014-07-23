@@ -51,6 +51,12 @@ sap.ui.jsview("ui.payroll.pages.payrollProcess", {
 		
 		oMatrix.createRow(oStepContentMatrix);
 		
+		var oPreviousButton = new sap.ui.commons.Button({text: 'Previous',
+			style: sap.ui.commons.ButtonStyle.Emph,
+			press:function(){ oController.naviToPreviousStep() ;}
+			});
+		oPreviousButton.addStyleClass("btn_previous");
+		
 		var oSaveNextButton = new sap.ui.commons.Button({text: 'Save and Next',
 														style: sap.ui.commons.ButtonStyle.Accept,
 														press:function(){ oController.saveAndNext() ;}
@@ -66,7 +72,7 @@ sap.ui.jsview("ui.payroll.pages.payrollProcess", {
 				size: "20%",
 				contentAlign: "center",
 				visible: true, 
-				content: [new sap.ui.commons.Button({text: 'Cancel',style:sap.ui.commons.ButtonStyle.Reject})]
+				content: [new sap.ui.commons.Button({text: 'Cancel',style:sap.ui.commons.ButtonStyle.Reject}), oPreviousButton]
 				}),
 			end: new sap.ui.commons.layout.BorderLayoutArea({
 				size: "50%",
