@@ -56,4 +56,19 @@ public class SchemaConfParser {
 		}
 		return paramVOList;
 	}
+	
+	
+	public static String convertConfBeanToXML(List<SchemaConfParamXMLBean> paramList, String type){
+		XStream xstream = new XStream();
+		if("input".equals(type)){
+			SchemaInputXMLBean inputXMLBean = new SchemaInputXMLBean();
+			inputXMLBean.setInput(paramList);
+			return xstream.toXML(inputXMLBean);
+		}else if("output".equals(type)){
+			SchemaOutputXMLBean outputXMLBean = new SchemaOutputXMLBean();
+			outputXMLBean.setOutput(paramList);
+			return xstream.toXML(outputXMLBean);
+		}
+		return null;
+	}
 }

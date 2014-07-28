@@ -50,14 +50,37 @@ sap.ui.controller("ui.payroll.pages.paramConfig", {
 		});
 	},
 	saveContent : function(callback){
+		//save input parameter
+		var inputTable = sap.ui.getCore().byId("tb_paramconf_input");
+		var oJsonModel = inputTable.getModel();
+		var oJson = oJsonModel.getData().data;
+		var oArrToSave = [];
+		for(var i = 0 ; i < oJson.length; i++){
+			if(!oJson[i].name){
+				oArrToSave[oArrToSave.length] = oJson[i];
+			}
+		}
+		
+		
 		callback();
 	},
 	
 	addInputParam : function(){
 		var inputTable = sap.ui.getCore().byId("tb_paramconf_input");
 		var oJsonModel = inputTable.getModel();
-		var oJson = oJsonModel().getData().data;
-		
+		var oJson = oJsonModel.getData().data;
+		oJson.push({});
+		oJsonModel.setData({data:oJson});
+		inputTable.setModel(oJsonModel);
+	},
+	
+	addOutputParam :function(){
+		var outputTable = sap.ui.getCore().byId("tb_paramconf_output");
+		var oJsonModel = outputTable.getModel();
+		var oJson = oJsonModel.getData().data;
+		oJson.push({});
+		oJsonModel.setData({data:oJson});
+		outputTable.setModel(oJsonModel);
 	}
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
