@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,6 +25,7 @@ import com.jpy.schema.conf.SchemaConfParser;
 import com.jpy.schema.conf.bean.SchemaConfParamXMLBean;
 import com.jpy.schema.conf.dao.SchemaParamDao;
 import com.jpy.schema.conf.eo.SchemaConfEO;
+import com.jpy.schema.conf.vo.SchemaConf;
 import com.jpy.schema.conf.vo.SchemaConfParam;
 import com.sun.jersey.spi.resource.Singleton;
 
@@ -73,14 +75,13 @@ public class ParamService {
 	@Path("/save")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public int saveParams(@QueryParam("schemaId") String schemaId, List<SchemaConfParam> inputParamList, 
-			List<SchemaConfParam> outputParamList,
+	public int saveParams(@QueryParam("schemaId") String schemaId,SchemaConf schemaConfVO,
 			@Context ServletContext servletContext,
 			@Context HttpServletRequest request) {
-		List<SchemaConfParamXMLBean> inputXMLConfBeanList = this.convertVO2XMLBean(inputParamList);
+		List<SchemaConfParamXMLBean> inputXMLConfBeanList = this.convertVO2XMLBean(schemaConfVO.getInput());
 		String inputXML = SchemaConfParser.convertConfBeanToXML(inputXMLConfBeanList, "input");
 		
-		List<SchemaConfParamXMLBean> outputXMLConfBeanList = this.convertVO2XMLBean(outputParamList);
+		List<SchemaConfParamXMLBean> outputXMLConfBeanList = this.convertVO2XMLBean(schemaConfVO.getOutput());
 		String outputXML = SchemaConfParser.convertConfBeanToXML(outputXMLConfBeanList, "output");
 		SchemaConfEO schemaConf = new SchemaConfEO();
 		schemaConf.setSchemaId(schemaId);

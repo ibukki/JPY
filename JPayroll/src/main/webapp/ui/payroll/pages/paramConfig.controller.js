@@ -78,19 +78,41 @@ sap.ui.controller("ui.payroll.pages.paramConfig", {
 		});
 	},
 	saveContent : function(callback){
-		//save input parameter
+		//input parameters
 		var inputTable = sap.ui.getCore().byId("tb_paramconf_input");
 		var oJsonModel = inputTable.getModel();
 		var oJson = oJsonModel.getData().data;
-		var oArrToSave = [];
+		var oinputArrToSave = [];
 		for(var i = 0 ; i < oJson.length; i++){
-			if(!oJson[i].name){
-				oArrToSave[oArrToSave.length] = oJson[i];
+			if(oJson[i].name){
+				oinputArrToSave[oinputArrToSave.length] = oJson[i];
 			}
 		}
 		
+		//output parameters
+		var outputTable = sap.ui.getCore().byId("tb_paramconf_output");
+		var outJson = outputTable.getModel().getData().data;
+		var ooutArrToSave = [];
+		for(var i = 0; i < outJson.length; i++){
+			if(outJson[i].name){
+				ooutArrToSave[ooutArrToSave.length] = outJson[i];
+			}
+		}
 		
-		callback();
+		var schemaId = sap.ui.getCore().byId("dp_schema_id").getSelectedKey();
+		ocomJson = {input: oinputArrToSave, output: ooutArrToSave};
+		var saveUrl = this.serviceUrl + "save?schemaId=" + schemaId;
+		$.ajax({
+	          type: 'post',
+	          url: saveUrl,
+	          data: JSON.stringify(ocomJson),
+	          contentType: "application/json; charset=utf-8",
+	          traditional: true,
+	          success: function (data) {
+	              callback();
+	          }
+	    });
+		
 	},
 	
 	createNewConfig: function(){
