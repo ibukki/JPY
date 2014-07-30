@@ -5,6 +5,8 @@ sap.ui.controller("ui.payroll.pages.payrollProcess", {
                 {id:"step_paramConfig", label:"Parameters Config", enabled:false,viewName:"ui.payroll.pages.paramConfig"},
                 {id:"step_ruleConfig", label:"Rule Config", enabled:false ,viewName:"ui.payroll.pages.ruleConfig"}
                ],
+               
+   oViews : {},
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -14,7 +16,7 @@ sap.ui.controller("ui.payroll.pages.payrollProcess", {
 		if(this.stepConfigs){
 			for(var i = 0 ; i < this.stepConfigs.length; i++){
 				var stepConf = this.stepConfigs[i];
-				this.registerStep(stepConf.id,sap.ui.view({id:"view-"+stepConf.id, viewName:stepConf.viewName, type:sap.ui.core.mvc.ViewType.JS}));
+				this.registerStep(stepConf.id,{id:"view-"+stepConf.id, viewName:stepConf.viewName, type:sap.ui.core.mvc.ViewType.JS});
 			}
 			this.setStepView(this.stepConfigs[0].id);
 		}
@@ -35,12 +37,19 @@ sap.ui.controller("ui.payroll.pages.payrollProcess", {
 	contentView: {},
 	
 	getStepView : function(stepId){
-		return this.steps[stepId];
+		if(this.oViews[stepId]){
+			return this.oViews[stepId];
+		}else{
+			
+			var view = sap.ui.view(this.steps[stepId]);
+			this.oViews[stepId] = view;
+			return view;
+		}
 	},
 	
-	registerStep : function(stepId, stepView){
+	registerStep : function(stepId, viewConfig){
 		if(!this.steps[stepId]){
-			this.steps[stepId] = stepView;
+			this.steps[stepId] = viewConfig;
 		}
 	},
 	saveAndNext : function(){

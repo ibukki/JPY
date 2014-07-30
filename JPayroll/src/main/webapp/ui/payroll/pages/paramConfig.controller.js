@@ -1,6 +1,7 @@
 sap.ui.controller("ui.payroll.pages.paramConfig", {
 	
 	serviceUrl: "rest/params/",
+	confServiceUrl: "rest/schema/",
 	
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -8,11 +9,35 @@ sap.ui.controller("ui.payroll.pages.paramConfig", {
 * @memberOf ui.payroll.pages.paramConfig
 */
 	onInit: function() {
-		
+		this.loadConfigList();
 	},
 	
+	loadConfigList : function(){
+		var url = this.confServiceUrl + "list";
+		var that = this;
+		$.get(url, function(data){
+			if(data){
+				var itemData = [];
+				for(var i = 0 ; i< data.length; i++){
+					itemData[itemData.length] = {text:data[i]};
+				}
+				var oListItemTemplate = new sap.ui.core.ListItem({
+					key:"{text}",
+					text:"{text}"
+				});
+				var listDp = sap.ui.getCore().byId("dp_schema_id");
+				var oJsonModel = new sap.ui.model.json.JSONModel();
+				oJsonModel.setData({data:itemData});
+				listDp.setModel(oJsonModel);
+				listDp.bindItems("/data", oListItemTemplate);
+				
+				that.loadInputConfParams(data[0]);
+				that.loadoutputConfParams(data[0]);
+			}
+		});
+	},
 	loadConfiguredParams : function(){
-		var schemaId = sap.ui.getCore().byId("i_schema_id").getValue();
+		var schemaId = sap.ui.getCore().byId("dp_schema_id").getSelectedKey();
 		if(schemaId == ""){
 			alert("Please input schemaId");
 		}
@@ -21,6 +46,9 @@ sap.ui.controller("ui.payroll.pages.paramConfig", {
 		this.loadoutputConfParams(schemaId);
 	},
 	
+	changeSchemaId : function(){
+		this.loadConfiguredParams();
+	},
 	loadInputConfParams:function(schemaId){
 		var url = this.serviceUrl + "input?schemaId=" + schemaId;
 		$.get(url,function(data){
@@ -63,6 +91,10 @@ sap.ui.controller("ui.payroll.pages.paramConfig", {
 		
 		
 		callback();
+	},
+	
+	createNewConfig: function(){
+		
 	},
 	
 	addInputParam : function(){

@@ -24,13 +24,15 @@ sap.ui.jsview("ui.payroll.pages.paramConfig", {
 		var oLabel = new sap.ui.commons.Label({
 			text:"Schema ID"
 		});
-		var oInput = new sap.ui.commons.TextField("i_schema_id",{
-			value:""
+		var oInput = new sap.ui.commons.DropdownBox("dp_schema_id",{
+			change:function(){
+				oController.changeSchemaId();
+			}
 		});
 		var oButton = new sap.ui.commons.Button("btn_get_conf",{
-			text:"Load Config Data",
+			text:"Create New",
 			press:function(){
-				oController.loadConfiguredParams();
+				oController.createNewConfig();
 			}
 		});
 		oMatrix.createRow(oLabel, oInput, oButton);
