@@ -3,7 +3,8 @@ sap.ui.controller("ui.payroll.pages.payrollProcess", {
   stepConfigs : [
                 {id:"step_wageType", label:"step_wageType", enabled:true, viewName:"ui.payroll.pages.wageType"},
                 {id:"step_paramConfig", label:"Parameters Config", enabled:false,viewName:"ui.payroll.pages.paramConfig"},
-                {id:"step_ruleConfig", label:"Rule Config", enabled:false ,viewName:"ui.payroll.pages.ruleConfig"}
+                {id:"step_ruleConfig", label:"Rule Config", enabled:false ,viewName:"ui.payroll.pages.ruleConfig"},
+                {id:"step_runPayroll",label:"Run Payroll", enabled:false, viewName:"ui.payroll.pages.runPayroll"}
                ],
                
    oViews : {},
