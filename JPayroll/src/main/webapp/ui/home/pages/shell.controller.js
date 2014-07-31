@@ -3,7 +3,8 @@ sap.ui.controller("ui.home.pages.shell", {
 	
 	oNavigationItems : {
 		"home":{text:"Welcome", viewName:"ui.home.pages.home",type:"JS"},
-		"pyprocess":{text:"Process", viewName:"ui.payroll.pages.payrollProcess",type:"JS"}
+		"pyprocess":{text:"Process", viewName:"ui.payroll.pages.payrollProcess",type:"JS"},
+		"masterdata":{text:"Master Data", viewName:"ui.masterdata.pages.masterdataHome",type:"JS"}
 	},
 	
 	oViews : {},
