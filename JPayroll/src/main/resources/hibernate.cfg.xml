@@ -24,5 +24,6 @@
         <mapping class="com.jpy.masterdata.eo.EmployeeEO"/>
         <mapping class="com.jpy.wagetype.eo.WageTypeEO"/> 
         <mapping class="com.jpy.schema.conf.eo.SchemaConfEO"/>
+        <mapping class="com.jpy.schema.eo.SchemaEO"/>
     </session-factory>  
 </hibernate-configuration>

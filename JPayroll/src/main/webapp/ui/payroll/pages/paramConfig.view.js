@@ -36,6 +36,15 @@ sap.ui.jsview("ui.payroll.pages.paramConfig", {
 			}
 		});
 		oMatrix.createRow(oLabel, oInput, oButton);
+		oLabel = new sap.ui.commons.Label({
+			text:"Description"
+		});
+		oInput = new sap.ui.commons.TextField("i_schema_descr", {
+			editable:false,
+			width:"100%"
+		});
+		oMatrix.createRow(oLabel, oInput);
+		
 		oPanel.addContent(oMatrix);
 		
 		oMatrix = new sap.ui.commons.layout.MatrixLayout({

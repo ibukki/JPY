@@ -1,7 +1,7 @@
 sap.ui.controller("ui.payroll.pages.paramConfig", {
 	
 	serviceUrl: "rest/params/",
-	confServiceUrl: "rest/schema/",
+	confServiceUrl: "rest/schemaconf/",
 	
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -100,7 +100,7 @@ sap.ui.controller("ui.payroll.pages.paramConfig", {
 		}
 		
 		var schemaId = sap.ui.getCore().byId("dp_schema_id").getSelectedKey();
-		ocomJson = {input: oinputArrToSave, output: ooutArrToSave};
+		var ocomJson = {input: oinputArrToSave, output: ooutArrToSave};
 		var saveUrl = this.serviceUrl + "save?schemaId=" + schemaId;
 		$.ajax({
 	          type: 'post',
@@ -116,9 +116,59 @@ sap.ui.controller("ui.payroll.pages.paramConfig", {
 	},
 	
 	createNewConfig: function(){
-		
+		var that = this;
+		if(sap.ui.getCore().byId("dialog_new_schemaconf") != null){
+			sap.ui.getCore().byId("dialog_new_schemaconf").destroy();
+		}
+		var oDialog = new sap.ui.commons.Dialog("dialog_new_schemaconf", {
+			title:"Create a new schema",
+			width:"500px",
+			height:"200px",
+			close:function(){
+				this.destroy();
+			},
+			buttons:[new sap.ui.commons.Button({
+				text:"Close",
+				press:function(){
+					oDialog.destroy();
+				}
+			}), new sap.ui.commons.Button({
+				text:"Save",
+				style:sap.ui.commons.ButtonStyle.Accept,
+				press:function(){
+					that.saveNewSchema();
+					oDialog.destroy();
+				}
+			})]
+		});
+		var oMatrix = new sap.ui.commons.layout.MatrixLayout({
+			width:"100%",
+			widths:["30%","70%"]
+		});
+		var oLabel = new sap.ui.commons.Label({
+			width:"100px",
+			text:"Schema Name"
+		});
+		var oInput = new sap.ui.commons.TextField("new_schema_id",{enabled:true,
+			width:"100%"});
+		oMatrix.createRow(oLabel, oInput);
+		oLabel = new sap.ui.commons.Label({
+			width:"100px",
+			text:"Description"
+		});
+		oInput = new sap.ui.commons.TextField("new_schema_descr",{enabled:true,
+			width:"100%"});
+		oMatrix.createRow(oLabel, oInput);
+		oDialog.addContent(oMatrix);
+		oDialog.open();
 	},
 	
+	saveNewSchema : function(xargs){
+		var schemaId = sap.ui.getCore().byId("new_schema_id").getValue();
+		var description = sap.ui.getCore().byId("new_schema_descr").getValue();
+		alert("to be supplied");
+		
+	},
 	addInputParam : function(){
 		var inputTable = sap.ui.getCore().byId("tb_paramconf_input");
 		var oJsonModel = inputTable.getModel();

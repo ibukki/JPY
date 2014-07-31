@@ -19,7 +19,7 @@ import com.jpy.schema.conf.eo.SchemaConfEO;
 import com.sun.jersey.spi.resource.Singleton;
 
 @Singleton
-@Path("schema")
+@Path("schemaconf")
 public class SchemaConfService {
 	private static Logger logger = Logger.getLogger(SchemaConfService.class);
 	
