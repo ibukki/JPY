@@ -9,12 +9,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.stereotype.Component;
+
 import com.jpy.common.dao.HibernateDaoFactory;
 import com.jpy.schema.dao.SchemaDao;
 import com.jpy.schema.eo.SchemaEO;
-import com.sun.jersey.spi.resource.Singleton;
 
-@Singleton
+@Component
 @Path("schema")
 public class SchemaService {
 	

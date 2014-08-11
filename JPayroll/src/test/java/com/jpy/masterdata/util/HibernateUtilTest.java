@@ -13,14 +13,14 @@ import com.jpy.common.util.HibernateUtil;
 import com.jpy.masterdata.eo.EmployeeEO;
 
 public class HibernateUtilTest {
-	@Test  
-    public void testGetSession() {  
-        Session session = HibernateUtil.getSessionFactory().openSession();  
-          
-        Assert.assertNotNull(session);  
-          
-        HibernateUtil.getSessionFactory().close();  
-    }
+//	@Test  
+//    public void testGetSession() {  
+//        Session session = HibernateUtil.getSessionFactory().openSession();  
+//          
+//        Assert.assertNotNull(session);  
+//          
+//        HibernateUtil.getSessionFactory().close();  
+//    }
 	
 //	@Test  
 //    public void testSave() throws ParseException {  

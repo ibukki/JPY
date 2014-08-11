@@ -1,13 +1,11 @@
 package com.jpy.schema.conf.dao;
 
-import javax.servlet.ServletContext;
+
+import org.springframework.stereotype.Repository;
 
 import com.jpy.common.dao.BaseHibernateDao;
 
+@Repository
 public class SchemaParamDao extends BaseHibernateDao {
-	
-	public SchemaParamDao(ServletContext servletContext){
-		super(servletContext);
-	}
 	
 }

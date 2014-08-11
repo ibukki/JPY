@@ -1,12 +1,11 @@
 package com.jpy.schema.dao;
 
-import javax.servlet.ServletContext;
+
+import org.springframework.stereotype.Repository;
 
 import com.jpy.common.dao.BaseHibernateDao;
 
+@Repository
 public class SchemaDao extends BaseHibernateDao{
 	
-	public SchemaDao(ServletContext servletContext){
-		super(servletContext);
-	}
 }

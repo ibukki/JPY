@@ -3,34 +3,16 @@ package com.jpy.common.dao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.ServletContext;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 
-import com.jpy.common.util.HibernateUtil;
-
 public class BaseHibernateDao {
 	
-	/**
-	 * hibernate session
-	 */
-	private Session session;
-	
-	private ServletContext servletContext;
-	
-	public BaseHibernateDao(){
+	private SessionFactory sessionFactory;  
 		
-	}
-	
-	public BaseHibernateDao(ServletContext servletContext){
-		this.servletContext = servletContext;
-	}
-	
 	/**
 	 * 
 	 * @param object
@@ -176,14 +158,22 @@ public class BaseHibernateDao {
 	 * @return
 	 */
 	private Session getSession() {
-		SessionFactory sessionFactory = null;
-		if(this.servletContext != null){
-			sessionFactory = (SessionFactory) servletContext.getAttribute("SessionFactory");
-		}
-		if(sessionFactory != null){
-			return sessionFactory.openSession();
-		}else{
-			return HibernateUtil.getSessionFactory().openSession();
-		}
+		return sessionFactory.getCurrentSession();
+	}
+
+
+	/**
+	 * @return the sessionFactory
+	 */
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+
+	/**
+	 * @param sessionFactory the sessionFactory to set
+	 */
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }

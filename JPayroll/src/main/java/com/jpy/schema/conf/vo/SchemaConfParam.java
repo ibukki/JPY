@@ -2,6 +2,9 @@ package com.jpy.schema.conf.vo;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class SchemaConfParam implements Serializable{
 
 	/**

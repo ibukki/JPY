@@ -2,7 +2,9 @@ package com.jpy.wagetype.vo;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class WageTypeVO implements Serializable{
 	
 	/**

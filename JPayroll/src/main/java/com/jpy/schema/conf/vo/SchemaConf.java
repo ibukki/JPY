@@ -2,6 +2,9 @@ package com.jpy.schema.conf.vo;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class SchemaConf {
 	
 	private List<SchemaConfParam> input;

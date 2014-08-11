@@ -8,7 +8,6 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.jpy.common.dao.HibernateDaoFactory;
 import com.jpy.schema.conf.SchemaConfParser;
@@ -27,9 +27,8 @@ import com.jpy.schema.conf.dao.SchemaParamDao;
 import com.jpy.schema.conf.eo.SchemaConfEO;
 import com.jpy.schema.conf.vo.SchemaConf;
 import com.jpy.schema.conf.vo.SchemaConfParam;
-import com.sun.jersey.spi.resource.Singleton;
 
-@Singleton
+@Component
 @Path("params")
 public class ParamService {
 	

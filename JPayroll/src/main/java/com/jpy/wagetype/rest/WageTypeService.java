@@ -18,18 +18,22 @@ import javax.ws.rs.core.MediaType;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.jpy.common.dao.HibernateDaoFactory;
 import com.jpy.wagetype.dao.WageTypeDao;
 import com.jpy.wagetype.eo.WageTypeEO;
 import com.jpy.wagetype.vo.WageTypeVO;
-import com.sun.jersey.spi.resource.Singleton;
 
-@Singleton
+@Component
 @Path("wagetypes")
 public class WageTypeService {
 
 	private static Logger logger = Logger.getLogger(WageTypeService.class);
+	
+	@Autowired
+	private WageTypeDao wageTypeDao;
 
 	@GET
 	@Path("list")
@@ -38,8 +42,6 @@ public class WageTypeService {
 			@Context ServletContext servletContext) {
 		List<WageTypeVO> wageTypeList = new ArrayList<WageTypeVO>();
 
-		WageTypeDao wageTypeDao = (WageTypeDao) HibernateDaoFactory
-				.getDaoInstance(WageTypeDao.class, servletContext);
 		if (wageTypeDao != null) {
 			List<WageTypeEO> wageListEO = wageTypeDao.findAll(WageTypeEO.class);
 			if (wageListEO != null) {
@@ -113,5 +115,19 @@ public class WageTypeService {
 		} catch (Exception e) {
 			logger.error("error convert data");
 		}
+	}
+
+	/**
+	 * @return the wageTypeDao
+	 */
+	public WageTypeDao getWageTypeDao() {
+		return wageTypeDao;
+	}
+
+	/**
+	 * @param wageTypeDao the wageTypeDao to set
+	 */
+	public void setWageTypeDao(WageTypeDao wageTypeDao) {
+		this.wageTypeDao = wageTypeDao;
 	}
 }

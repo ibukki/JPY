@@ -12,13 +12,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.jpy.common.dao.HibernateDaoFactory;
 import com.jpy.schema.conf.dao.SchemaParamDao;
 import com.jpy.schema.conf.eo.SchemaConfEO;
-import com.sun.jersey.spi.resource.Singleton;
 
-@Singleton
+@Component
 @Path("schemaconf")
 public class SchemaConfService {
 	private static Logger logger = Logger.getLogger(SchemaConfService.class);
